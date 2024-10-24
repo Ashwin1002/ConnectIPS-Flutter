@@ -17,7 +17,6 @@ class ConnectivityUtil {
   final InternetConnection _connectivity;
 
   /// A stream that yields the status of internet connection that can be listened to.
-  Stream<InternetStatus> get internetConnectionListenableStatus {
-    return _connectivity.onStatusChange;
-  }
+  Stream<InternetStatus> get internetConnectionListenableStatus =>
+      _connectivity.onStatusChange;
 }

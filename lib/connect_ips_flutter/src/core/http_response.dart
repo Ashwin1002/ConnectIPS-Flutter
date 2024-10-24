@@ -1,4 +1,4 @@
-/// The response for [KhaltiClient].
+/// The response for [ConnectShiftClient].
 class HttpResponse {
   const HttpResponse._({this.data, this.statusCode, this.message});
 
@@ -33,7 +33,7 @@ class HttpResponse {
   }) = ExceptionHttpResponse._;
 }
 
-/// The success response for [KhaltiClient].
+/// The success response for [ConnectShiftClient].
 class SuccessHttpResponse extends HttpResponse {
   const SuccessHttpResponse._({
     required Object data,
@@ -46,7 +46,7 @@ class SuccessHttpResponse extends HttpResponse {
   }
 }
 
-/// The failure response for [KhaltiClient].
+/// The failure response for [ConnectShiftClient].
 class FailureHttpResponse extends HttpResponse {
   const FailureHttpResponse._({
     required Object data,
@@ -59,7 +59,7 @@ class FailureHttpResponse extends HttpResponse {
   }
 }
 
-/// The exception for [KhaltiClient].
+/// The exception for [ConnectShiftClient].
 class ExceptionHttpResponse extends HttpResponse {
   /// The error [code].
   final int code;

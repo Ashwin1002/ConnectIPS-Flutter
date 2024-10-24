@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:connect_ips_flutter/connect_ips_flutter/src/core/connect_ips_repository.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/core/http_response.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/model/cips_config.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/model/payment_result.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/widgets/cips_webview.dart';
 import 'package:flutter/material.dart';
+
+final repository = ConnectIpsRepository(client: HttpClient());
 
 /// Events when connect IPS is initiated
 enum PaymentEvent {
@@ -45,7 +48,6 @@ class ConnectIps {
   const ConnectIps._({
     required CIPSConfig config,
     required VerifyTransactionConfig? verifyConfig,
-    required this.showLog,
     required this.onMessage,
     required this.onPaymentResult,
     this.onReturn,
@@ -55,9 +57,6 @@ class ConnectIps {
   final CIPSConfig _payConfig;
 
   final VerifyTransactionConfig? _verifyConfig;
-
-  /// show log
-  final bool showLog;
 
   /// A callback which is to be triggered when any payment is made.
   final OnPaymentResult onPaymentResult;
@@ -71,14 +70,12 @@ class ConnectIps {
   factory ConnectIps({
     required CIPSConfig config,
     VerifyTransactionConfig? verifyConfig,
-    bool showLog = false,
     required OnMessage onMessage,
     required OnPaymentResult onPaymentResult,
     OnReturn? onReturn,
   }) =>
       ConnectIps._(
         config: config,
-        showLog: showLog,
         onMessage: onMessage,
         onReturn: onReturn,
         onPaymentResult: onPaymentResult,
@@ -131,7 +128,7 @@ class ConnectIps {
       );
     }
     try {
-      final response = await cipsClient.verifyTransaction(
+      final response = await repository.verifyTransaction(
         payConfig,
         verifyConfig!,
       );

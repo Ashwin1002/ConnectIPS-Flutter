@@ -5,49 +5,56 @@ import 'package:connect_ips_flutter/connect_ips_flutter/src/core/http_response.d
 import 'package:connect_ips_flutter/connect_ips_flutter/src/model/cips_config.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/utils/generate_token.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 /// Typedef for http.Client that is used internally.
 typedef HttpClient = http.Client;
 
-class ConnectIpsClient {
+class ConnectIpsRepository {
   /// The HTTP client used to make HTTP requests.
-  ConnectIpsClient({
+  ConnectIpsRepository({
     HttpClient? client,
   }) : _client = client ?? HttpClient();
 
   final HttpClient _client;
 
-  Future<HttpResponse> initiatePayment(
+  Map<String, String> get applicationJsonHeader =>
+      {'Content-Type': 'application/json'};
+
+  /// get basic auth header for request
+  Map<String, String> _getBasicAuthHeader(VerifyTransactionConfig config) {
+    return {
+      'Authorization':
+          'Basic ${base64.encode(utf8.encode('${config.username}:${config.password}'))}'
+    };
+  }
+
+  Future<HttpResponse> getTransactionDetail(
     CIPSConfig paymentConfig,
+    VerifyTransactionConfig verifyConfig,
   ) {
-    final txnDate = DateFormat('DD-MM-YYYY')
-        .format(paymentConfig.transactionDate ?? DateTime.now().toUtc());
-    final message = '''
-        MERCHANTID=${paymentConfig.merchantID},APPID=${paymentConfig.appID},APPNAME=${paymentConfig.appName},TXNID=${paymentConfig.transactionID},TXNDATE=$txnDate,TXNCRNCY=${paymentConfig.transactionCurrency},TXNAMT=${paymentConfig.transactionAmount},REFERENCEID=${paymentConfig.refrerenceID},REMARKS=${paymentConfig.remarks},PARTICULARS=${paymentConfig.particulars},TOKEN=TOKEN
-    ''';
+    final message =
+        'MERCHANTID=${paymentConfig.merchantID},APPID=${paymentConfig.appID},REFERENCEID=${paymentConfig.transactionID},TXNAMT=${paymentConfig.transactionAmount}';
+
     return _handleExceptions(
       () async {
         final uri = Uri.parse(
-            'https://${paymentConfig.baseUrl}/connectipswebgw/loginpage');
+          'https://${paymentConfig.baseUrl}/connectipswebws/api/creditor/gettxndetail',
+        );
+
+        var body = {
+          "merchantId": paymentConfig.merchantID,
+          "appId": paymentConfig.appID,
+          "referenceId": paymentConfig.transactionID,
+          "txnAmt": paymentConfig.transactionAmount,
+          'TOKEN': await getSignedToken(message, paymentConfig.creditorPath),
+        };
         final response = await _client.post(
           uri,
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            ...applicationJsonHeader,
+            ..._getBasicAuthHeader(verifyConfig),
           },
-          body: {
-            'MERCHANTID': paymentConfig.merchantID,
-            'APPID': paymentConfig.appID,
-            'APPNAME': paymentConfig.appName,
-            'TXNID': paymentConfig.transactionID,
-            'TXNDATE': txnDate,
-            'TXNCRNCY': paymentConfig.transactionCurrency,
-            'TXNAMT': paymentConfig.transactionAmount,
-            'REFERENCEID': paymentConfig.refrerenceID,
-            'REMARKS': paymentConfig.remarks,
-            'PARTICULARS': paymentConfig.particulars,
-            'TOKEN': await getSignedToken(message, paymentConfig.creditorPath),
-          },
+          body: body,
         );
 
         final statusCode = response.statusCode;
@@ -75,15 +82,16 @@ class ConnectIpsClient {
         MERCHANTID=${paymentConfig.merchantID},APPID=${paymentConfig.appID},REFERENCEID=${paymentConfig.transactionID},TXNAMT=${paymentConfig.transactionAmount}
     ''';
 
-    String basicAuth =
-        'Basic ${base64.encode(utf8.encode('${verifyConfig.username}:${verifyConfig.password}'))}';
     return _handleExceptions(
       () async {
         final uri = Uri.parse(
             'https://${paymentConfig.baseUrl}/connectipswebws/api/creditor/validatetxn');
         final response = await _client.post(
           uri,
-          headers: {'Authorization': basicAuth},
+          headers: {
+            ...applicationJsonHeader,
+            ..._getBasicAuthHeader(verifyConfig),
+          },
           body: {
             'merchantId': paymentConfig.merchantID,
             'appId': paymentConfig.appID,

@@ -5,7 +5,6 @@ import 'dart:typed_data';
 
 import 'package:connect_ips_flutter/connect_ips_flutter/src/constants/app_texts.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/core/connect_ips.dart';
-import 'package:connect_ips_flutter/connect_ips_flutter/src/core/connect_ips_client.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/model/payment_result.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/utils/connection_checker.dart';
 import 'package:connect_ips_flutter/connect_ips_flutter/src/utils/generate_token.dart';
@@ -13,8 +12,6 @@ import 'package:connect_ips_flutter/connect_ips_flutter/src/widgets/pop_widget.d
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:intl/intl.dart';
-
-final cipsClient = ConnectIpsClient(client: HttpClient());
 
 class ConnectIPSWebView extends StatefulWidget {
   const ConnectIPSWebView({
