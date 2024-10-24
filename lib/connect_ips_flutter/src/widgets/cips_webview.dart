@@ -113,7 +113,7 @@ class _ConnectIPSWebViewState extends State<ConnectIPSWebView> {
                       Future.microtask(
                         () => showLinearProgressIndicator.value = false,
                       );
-                      return const _KhaltiError(
+                      return const _CIPSErrorView(
                         icon: Icon(Icons
                             .signal_wifi_statusbar_connected_no_internet_4),
                         errorMessage: kNoInternetConnection,
@@ -272,11 +272,11 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
 }
 
 /// A widget that is displayed when there is no internet connection.
-class _KhaltiError extends StatelessWidget {
-  /// Constructor for [_KhaltiError].
+class _CIPSErrorView extends StatelessWidget {
+  /// Constructor for [_CIPSErrorView].
   ///
   /// A widget that is displayed when there is no internet connection.
-  const _KhaltiError({
+  const _CIPSErrorView({
     this.icon,
     this.errorMessage,
     this.errorDescription,

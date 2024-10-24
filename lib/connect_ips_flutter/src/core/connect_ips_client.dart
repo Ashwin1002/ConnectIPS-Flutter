@@ -89,7 +89,8 @@ class ConnectIpsClient {
             'appId': paymentConfig.appID,
             'referenceId': paymentConfig.transactionID,
             'txnAmt': paymentConfig.transactionAmount,
-            'token': await getSignedToken(message, paymentConfig.creditorPath),
+            'token': await getSignedToken(
+                message.trim(), paymentConfig.creditorPath),
           },
         );
 
