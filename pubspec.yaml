@@ -27,10 +27,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  assets:
-    # insert your .pfx file in the asset and place the path
-    # extract your pfx file using the following command:
-    # ```openssl pkcs12 -in your_certificate.pfx -nocerts -nodes -out private_key.pem```
-    - CREDITOR.pfx
-    - private_key.pem
