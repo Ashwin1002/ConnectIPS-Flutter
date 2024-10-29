@@ -15,3 +15,6 @@ const kPaymentCancelled = 'Payment cancelled by user';
 
 /// Default connect ips base login url
 const kDefaultBaseLoginUrl = 'https://base_url/connectipswebgw/loginpage';
+
+/// Default connect ips logo in png
+const kConnectIPSLogo = 'assets/connect_ips.png';
