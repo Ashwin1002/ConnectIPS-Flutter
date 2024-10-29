@@ -85,23 +85,26 @@ class _ConnectIPSWebViewState extends State<ConnectIPSWebView> {
 
   @override
   Widget build(BuildContext context) {
+    final customBuilder = widget.connectIPS.customBuilder;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(kPayWithCIPS),
-        actions: [
-          IconButton(
-            onPressed: _reload,
-            icon: const Icon(Icons.refresh),
-          )
-        ],
-      ),
+      appBar: customBuilder?.appBar ??
+          AppBar(
+            title: const Text(kPayWithCIPS),
+            actions: [
+              IconButton(
+                onPressed: _reload,
+                icon: const Icon(Icons.refresh),
+              )
+            ],
+          ),
       body: Column(
         children: [
           ValueListenableBuilder(
             valueListenable: showLinearProgressIndicator,
             builder: (_, showLoader, __) {
               return showLoader
-                  ? const LinearProgressIndicator()
+                  ? customBuilder?.loadingIndicator ??
+                      const LinearProgressIndicator()
                   : const SizedBox.shrink();
             },
           ),
@@ -125,12 +128,19 @@ class _ConnectIPSWebViewState extends State<ConnectIPSWebView> {
                       Future.microtask(
                         () => showLinearProgressIndicator.value = false,
                       );
-                      return const _CIPSErrorView(
-                        icon: Icon(Icons
-                            .signal_wifi_statusbar_connected_no_internet_4),
-                        errorMessage: kNoInternetConnection,
-                        errorDescription: kNoInternetConnectionMessage,
-                      );
+                      return customBuilder?.errorBuilder?.call(
+                            context,
+                            kNoInternetConnection,
+                            kNoInternetConnectionMessage,
+                          ) ??
+                          const _CIPSErrorView(
+                            icon: Icon(
+                              Icons
+                                  .signal_wifi_statusbar_connected_no_internet_4,
+                            ),
+                            errorMessage: kNoInternetConnection,
+                            errorDescription: kNoInternetConnectionMessage,
+                          );
                   }
                 },
               ),

@@ -56,11 +56,13 @@ class ConnectIps {
   const ConnectIps._({
     required CIPSConfig config,
     required VerifyTransactionConfig? verifyConfig,
+    required CustomWidgetBuilder? customBuilder,
     required this.onMessage,
     required this.onPaymentResult,
     this.onReturn,
   })  : _payConfig = config,
-        _verifyConfig = verifyConfig;
+        _verifyConfig = verifyConfig,
+        _customBuilder = customBuilder;
 
   /// Configuration for initiating Connect IPS payment.
   final CIPSConfig _payConfig;
@@ -77,14 +79,19 @@ class ConnectIps {
   /// Optional callback for when the user is redirected to the specified `return_url`.
   final OnReturn? onReturn;
 
+  /// Optional builder for creating the custom components in the connect ips web view
+  final CustomWidgetBuilder? _customBuilder;
+
   /// Factory constructor for creating a [ConnectIps] instance.
   ///
   /// Requires [config] for payment setup, [onMessage] for handling exceptions,
   /// and [onPaymentResult] for payment result handling. Optionally accepts
   /// [verifyConfig] for verification and [onReturn] for handling redirection.
+  /// [customBuilder] for creating custom components for Connect IPS webview
   factory ConnectIps({
     required CIPSConfig config,
     VerifyTransactionConfig? verifyConfig,
+    CustomWidgetBuilder? customBuilder,
     required OnMessage onMessage,
     required OnPaymentResult onPaymentResult,
     OnReturn? onReturn,
@@ -95,6 +102,7 @@ class ConnectIps {
         onReturn: onReturn,
         onPaymentResult: onPaymentResult,
         verifyConfig: verifyConfig,
+        customBuilder: customBuilder,
       );
 
   /// Retrieves the payment configuration for initiating Connect IPS payment.
@@ -102,6 +110,9 @@ class ConnectIps {
 
   /// Retrieves the verification configuration for verifying Connect IPS payment.
   VerifyTransactionConfig? get verifyConfig => _verifyConfig;
+
+  /// Retrieves the custom builder for creating custom componentes in web view
+  CustomWidgetBuilder? get customBuilder => _customBuilder;
 
   /// Boolean indicator to show if the web view has already been closed.
   ///

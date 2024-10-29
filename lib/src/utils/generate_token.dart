@@ -11,14 +11,16 @@ import 'package:pointycastle/export.dart';
 /// i. Generate message digest of the token string using SHA256 hashing algorithm.
 ///
 /// ii. Sign the message digest using the digital certificate private key
-/// (pfx file/keystore). The digital signature algorithm will be the SHA256withRSA.
+/// (pfx file/keystore). Flutter doesnot natively read .pfx file so, it required to convert
+/// the .pfx file to .pem file and then sign it.
+/// The digital signature algorithm will be the SHA256withRSA.
 ///  Private key file will be [CREDITOR.pfx] for testing purpose.
 ///
 /// iii. Convert the signed token above in step ii to base64 encoding
 ///
 /// Parameters:
 /// - [message]: Message required for encryption.
-/// - [path]: Path of the digital certificate private key (pfx file/keystore)
+/// - [path]: Path of the digital certificate private key (pem file)
 
 Future<String> getSignedToken(String message, String path) async {
 // Load the private key from PEM file
