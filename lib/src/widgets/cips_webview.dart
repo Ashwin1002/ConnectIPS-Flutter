@@ -255,11 +255,9 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
         onReceivedError: (_, webResourceRequest, error) async {
           final payconfig = connectIPS.payConfig;
 
-          bool isSuccess = payconfig.successUrl.trim().isNotEmpty &&
-              webResourceRequest.toString().contains(payconfig.successUrl);
           bool isFailure = payconfig.failureUrl.trim().isNotEmpty &&
               webResourceRequest.toString().contains(payconfig.failureUrl);
-          if (isSuccess || isFailure) {
+          if (isFailure) {
             showLinearProgressIndicator.value = false;
             return connectIPS.onMessage(
               description: error.description,
@@ -272,11 +270,9 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
         onReceivedHttpError: (_, webResourceRequest, response) async {
           final payconfig = connectIPS.payConfig;
 
-          bool isSuccess = payconfig.successUrl.trim().isNotEmpty &&
-              webResourceRequest.toString().contains(payconfig.successUrl);
           bool isFailure = payconfig.failureUrl.trim().isNotEmpty &&
               webResourceRequest.toString().contains(payconfig.failureUrl);
-          if (isSuccess || isFailure) {
+          if (isFailure) {
             showLinearProgressIndicator.value = false;
             return connectIPS.onMessage(
               event: PaymentEvent.paymentLookupfailure,
