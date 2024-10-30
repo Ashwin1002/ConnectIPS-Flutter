@@ -37,7 +37,7 @@ class GlobalPopScope extends StatelessWidget {
           return PopScope(
             canPop: canPop.data ?? true,
             onPopInvokedWithResult: (didPop, result) async =>
-                await onPopInvoked?.call(didPop),
+                await onPopInvoked?.call(await isPoppable),
             child: child,
           );
         },
@@ -46,7 +46,7 @@ class GlobalPopScope extends StatelessWidget {
     return PopScope(
       canPop: isPoppable,
       onPopInvokedWithResult: (didPop, result) async =>
-          await onPopInvoked?.call(didPop),
+          await onPopInvoked?.call(isPoppable),
       child: child,
     );
   }
