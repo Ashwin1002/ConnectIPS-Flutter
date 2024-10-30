@@ -253,22 +253,37 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
           }
         },
         onReceivedError: (_, webResourceRequest, error) async {
-          showLinearProgressIndicator.value = false;
-          return connectIPS.onMessage(
-            description: error.description,
-            event: PaymentEvent.paymentCancelled,
-            needsPaymentConfirmation: true,
-            connectIPS,
-          );
+          final payconfig = connectIPS.payConfig;
+
+          bool isSuccess = payconfig.successUrl.trim().isNotEmpty &&
+              webResourceRequest.toString().contains(payconfig.successUrl);
+          bool isFailure = payconfig.failureUrl.trim().isNotEmpty &&
+              webResourceRequest.toString().contains(payconfig.failureUrl);
+          if (isSuccess || isFailure) {
+            showLinearProgressIndicator.value = false;
+            return connectIPS.onMessage(
+              description: error.description,
+              event: PaymentEvent.paymentLookupfailure,
+              needsPaymentConfirmation: true,
+              connectIPS,
+            );
+          }
         },
         onReceivedHttpError: (_, webResourceRequest, response) async {
-          showLinearProgressIndicator.value = false;
-          return connectIPS.onMessage(
-            statusCode: response.statusCode,
-            event: PaymentEvent.paymentCancelled,
-            needsPaymentConfirmation: true,
-            connectIPS,
-          );
+          final payconfig = connectIPS.payConfig;
+
+          bool isSuccess = payconfig.successUrl.trim().isNotEmpty &&
+              webResourceRequest.toString().contains(payconfig.successUrl);
+          bool isFailure = payconfig.failureUrl.trim().isNotEmpty &&
+              webResourceRequest.toString().contains(payconfig.failureUrl);
+          if (isSuccess || isFailure) {
+            showLinearProgressIndicator.value = false;
+            return connectIPS.onMessage(
+              event: PaymentEvent.paymentLookupfailure,
+              needsPaymentConfirmation: true,
+              connectIPS,
+            );
+          }
         },
         onWebViewCreated: webViewControllerCompleter.complete,
         initialSettings: InAppWebViewSettings(
