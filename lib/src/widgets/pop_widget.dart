@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 /// `FutureOr<void> Function(bool didPop)`
-typedef PopInvokedCallback = FutureOr<void> Function(bool didPop);
+typedef PopInvokedCallback = FutureOr<void> Function(
+    bool didPop, Object? result);
 
 /// `FutureOr<bool> Function()`
 typedef CanPopCallback = FutureOr<bool> Function();
@@ -36,8 +37,7 @@ class GlobalPopScope extends StatelessWidget {
         builder: (_, canPop) {
           return PopScope(
             canPop: canPop.data ?? true,
-            onPopInvokedWithResult: (didPop, result) async =>
-                await onPopInvoked?.call(await isPoppable),
+            onPopInvokedWithResult: onPopInvoked,
             child: child,
           );
         },
@@ -45,8 +45,7 @@ class GlobalPopScope extends StatelessWidget {
     }
     return PopScope(
       canPop: isPoppable,
-      onPopInvokedWithResult: (didPop, result) async =>
-          await onPopInvoked?.call(isPoppable),
+      onPopInvokedWithResult: onPopInvoked,
       child: child,
     );
   }

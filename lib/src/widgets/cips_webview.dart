@@ -192,7 +192,7 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
     final connectIPS =
         context.findAncestorWidgetOfExactType<ConnectIPSWebView>()!.connectIPS;
     return GlobalPopScope(
-      onPopInvoked: (_) {
+      onPopInvoked: (didPop, _) {
         ConnectIps.hasPopped = true;
         return connectIPS.onMessage(
           event: PaymentEvent.paymentCancelled,
