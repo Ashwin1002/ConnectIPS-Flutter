@@ -224,6 +224,8 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
                 );
               }
               if (isSuccess) {
+                var message =
+                    'MERCHANTID=${payconfig.merchantID},APPID=${payconfig.appID},REFERENCEID=${payconfig.transactionID},TXNAMT=${payconfig.transactionAmount}';
                 final result = PaymentResult(
                   merchantID: payconfig.merchantID,
                   appID: payconfig.appID,
@@ -231,6 +233,10 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
                   txnAmount: payconfig.transactionAmount,
                   status: 'Payment Success',
                   statusDesc: 'Verification required',
+                  token: await getSignedToken(
+                    message,
+                    payconfig.creditorPath,
+                  ),
                 );
                 await connectIPS.onReturn?.call(result);
                 return connectIPS.onPaymentResult(
