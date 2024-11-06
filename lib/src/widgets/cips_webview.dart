@@ -11,6 +11,7 @@ import 'package:connect_ips_flutter/src/utils/generate_token.dart';
 import 'package:connect_ips_flutter/src/widgets/pop_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 
 /// A widget for displaying the Connect IPS payment web view.
@@ -110,21 +111,21 @@ class _ConnectIPSWebViewState extends State<ConnectIPSWebView> {
           ),
           Expanded(
             child: SafeArea(
-              child: StreamBuilder<InternetStatus>(
+              child: StreamBuilder<InternetConnectionStatus>(
                 stream: connectivityUtil.internetConnectionListenableStatus,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return const SizedBox.shrink();
                   final connectionStatus = snapshot.data!;
 
                   switch (connectionStatus) {
-                    case InternetStatus.connected:
+                    case InternetConnectionStatus.connected:
                       return _ConnectIPSWebViewClient(
                         showLinearProgressIndicator:
                             showLinearProgressIndicator,
                         webViewControllerCompleter: controllerCompleter,
                         body: bodyBytes,
                       );
-                    case InternetStatus.disconnected:
+                    case InternetConnectionStatus.disconnected:
                       Future.microtask(
                         () => showLinearProgressIndicator.value = false,
                       );
