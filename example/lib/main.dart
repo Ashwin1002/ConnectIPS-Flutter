@@ -82,12 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final config = const CIPSConfig.stag(
     creditorPath: 'private_key.pem',
-    merchantID: 3090,
-    appID: 'MER-3090-APP-1',
-    appName: 'Bhawani',
-    transactionID: 'Earthier-0019',
-    successUrl: 'https://dev.earthier.net/transaction/success',
-    failureUrl: 'https://dev.earthier.net/transaction/failure',
+    merchantID: 007,
+    appID: 'MER-550-APP-1',
+    appName: 'APPNAME',
+    transactionID: 'TXN-007',
+    successUrl: 'https://example.com/success',
+    failureUrl: 'https://example.com/transaction/failure',
     transactionAmount: 1000,
   );
 
