@@ -8,6 +8,7 @@ typedef ErrorWidgetBuilder = Widget Function(
   String description,
 );
 
+// ignore: public_member_api_docs
 typedef ButtonBuilder = Widget Function(
   BuildContext context,
   Widget logo,

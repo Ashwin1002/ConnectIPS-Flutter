@@ -25,6 +25,10 @@ class ConnectIpsRepository {
   Map<String, String> get applicationJsonHeader =>
       {'Content-Type': 'application/json'};
 
+  /// HTTP header for x-www-Form-urlcoded content-type.
+  Map<String, String> get xformUrlEncodedHeader =>
+      {'Content-Type': 'application/x-www-form-urlencoded'};
+
   /// Constructs the Basic Authentication header using [VerifyTransactionConfig].
   ///
   /// This header is used for authentication in requests that require Basic

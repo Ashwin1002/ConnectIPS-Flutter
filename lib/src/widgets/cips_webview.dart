@@ -286,12 +286,12 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
         },
         onWebViewCreated: webViewControllerCompleter.complete,
         initialSettings: InAppWebViewSettings(
-            // useOnLoadResource: true,
-            // useHybridComposition: true,
-            // clearCache: true,
-            // cacheEnabled: false,
-            // cacheMode: CacheMode.LOAD_NO_CACHE,
-            ),
+          useOnLoadResource: true,
+          useHybridComposition: true,
+          clearCache: true,
+          cacheEnabled: false,
+          cacheMode: CacheMode.LOAD_NO_CACHE,
+        ),
         initialUrlRequest: URLRequest(
           url: WebUri.uri(
             Uri.parse(
@@ -303,6 +303,9 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
           ),
           method: 'POST',
           body: body,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
         ),
         onProgressChanged: (_, progress) {
           if (progress == 100) showLinearProgressIndicator.value = false;

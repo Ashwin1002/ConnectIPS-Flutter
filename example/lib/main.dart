@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connect_ips_flutter/connect_ips_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -79,17 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   final config = const CIPSConfig.stag(
-    creditorPath: 'private_key.pem', // path of the .pem file
-    merchantID: 007, // merchant ID provided by NCHL
-    appID: 'MER-550-APP-1', // app ID provided by NCHL
-    appName: 'APPNAME', // app name provided by NCHL
-    transactionID:
-        'earthier_0015', // unique transaction ID for every transaction
-    successUrl:
-        'https://dev.earthier.net/transaction/success', // your success url set for connect IPS after successful transaction
-    failureUrl:
-        'https://dev.earthier.net/transaction/failure', // your failure url set by connect IPS afetr failure
-    transactionAmount: 1000, // transaction amount in paisa
+    creditorPath: 'private_key.pem',
+    merchantID: 3090,
+    appID: 'MER-3090-APP-1',
+    appName: 'Bhawani',
+    transactionID: 'Earthier-0019',
+    successUrl: 'https://dev.earthier.net/transaction/success',
+    failureUrl: 'https://dev.earthier.net/transaction/failure',
+    transactionAmount: 1000,
   );
 
   @override
@@ -102,6 +101,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ConnectIPSPaymentButton(
           config: config,
+          onMessage: (
+            connectIPS, {
+            description,
+            event,
+            needsPaymentConfirmation,
+            statusCode,
+          }) {
+            log('message: $description, event: $event, statusCode: $statusCode ');
+          },
+          onPaymentResult: (paymentResult, connectIps) {
+            log('payment result => $paymentResult');
+          },
         ),
       ),
     );
