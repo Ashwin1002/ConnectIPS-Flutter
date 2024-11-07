@@ -104,8 +104,10 @@ class _ConnectIPSWebViewState extends State<ConnectIPSWebView> {
             valueListenable: showLinearProgressIndicator,
             builder: (_, showLoader, __) {
               return showLoader
-                  ? customBuilder?.loadingIndicator ??
-                      const LinearProgressIndicator()
+                  ? RepaintBoundary(
+                      child: customBuilder?.loadingIndicator ??
+                          const LinearProgressIndicator(),
+                    )
                   : const SizedBox.shrink();
             },
           ),
