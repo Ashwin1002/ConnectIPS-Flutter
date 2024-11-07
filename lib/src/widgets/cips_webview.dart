@@ -286,12 +286,12 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
         },
         onWebViewCreated: webViewControllerCompleter.complete,
         initialSettings: InAppWebViewSettings(
-          useOnLoadResource: true,
-          useHybridComposition: true,
-          clearCache: true,
-          cacheEnabled: false,
-          cacheMode: CacheMode.LOAD_NO_CACHE,
-        ),
+            // useOnLoadResource: true,
+            // useHybridComposition: true,
+            // clearCache: true,
+            // cacheEnabled: false,
+            // cacheMode: CacheMode.LOAD_NO_CACHE,
+            ),
         initialUrlRequest: URLRequest(
           url: WebUri.uri(
             Uri.parse(
