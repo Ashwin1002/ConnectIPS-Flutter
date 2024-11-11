@@ -66,16 +66,20 @@ class ConnectIPSPaymentButton extends StatefulWidget {
   /// Public Constructor for `ConnectIPSPaymentButton`
   const ConnectIPSPaymentButton({
     super.key,
-    required this.config, // Payment configuration
-    this.onMessage, // Callback for messages
-    this.onPaymentResult, // Callback for payment results
-    this.onReturn, // Callback when returning after payment completion
-    this.customBuilder, // Optional custom button builder
+    required this.config,
+    this.onMessage,
+    this.onPaymentResult,
+    this.onReturn,
+    this.customBuilder,
+    this.verifyTransactionConfig,
   });
 
   /// Configurations for ConnectIPS. It has two named constructors:
   /// `stag` and `live`
   final CIPSConfig config;
+
+  /// Verification Configurations for ConnectIPS.
+  final VerifyTransactionConfig? verifyTransactionConfig;
 
   /// Callback type for handling exceptions that occur during payment processing.
   final OnMessage? onMessage;
@@ -103,19 +107,18 @@ class _ConnectIPSPaymentButtonState extends State<ConnectIPSPaymentButton> {
     super.initState();
     // Initialize the ConnectIps instance with the configuration and callbacks.
     connectIps = ConnectIps(
-      config: widget.config, // Use provided config for payment
+      config: widget.config,
+      verifyConfig: widget.verifyTransactionConfig,
       onMessage: (
         connectIPS, {
-        description, // Message description
-        event, // Event type
-        needsPaymentConfirmation, // Whether payment confirmation is needed
-        statusCode, // HTTP status code (if any)
+        description,
+        event,
+        needsPaymentConfirmation,
+        statusCode,
       }) {
-        // Log the message and optional details.
         log(
           'Description: $description, Status Code: $statusCode, Event: $event, NeedsPaymentConfirmation: $needsPaymentConfirmation',
         );
-        // Invoke optional user-provided message callback.
         widget.onMessage?.call(
           connectIPS,
           description: description,
@@ -153,9 +156,8 @@ class _ConnectIPSPaymentButtonState extends State<ConnectIPSPaymentButton> {
     // Build custom button if customBuilder is provided; otherwise, use default button design.
     return widget.customBuilder?.buttonBuilder?.call(
           context,
-          _buildLogo(widget
-              .customBuilder?.logoSize), // Pass in custom logo size if provided
-          kPayWithCIPS, // Button text
+          _buildLogo(widget.customBuilder?.logoSize),
+          kPayWithCIPS,
         ) ??
         // Default button appearance if no custom builder is provided.
         ElevatedButton(
