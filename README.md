@@ -72,6 +72,10 @@ final config = const CIPSConfig.stag(
 );
 ```
 
+You can create a unique transaction id by also using a utiltiy function `generateTransactionID([int length = 20])`. This helper function will generate a unique transaction id of given `length`. Optional param `length` default to `20`. 
+
+Note: Transaction ID can be only maximum of 20 characters. For more info and other related character information, visit [Merchant Interface](https://npidoc.connectips.com/docs/connectIPS-Gateway/merchant-interface) docs.
+
 For production, use `CIPSConfig.live`.
 
 ### Payment Integration
