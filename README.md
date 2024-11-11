@@ -1,4 +1,4 @@
-# ![cips_logo](https://github.com/user-attachments/assets/8affc63a-a450-4570-877c-a4e245962c8d) ConnectIPS Flutter
+# <img src="https://github.com/user-attachments/assets/8affc63a-a450-4570-877c-a4e245962c8d" width="48"> ConnectIPS Flutter
 
 ConnectIPS Flutter is a Flutter package that simplifies the integration of the Connect IPS payment gateway into your mobile or web applications. It leverages the official [Connect IPS documentation](https://npidoc.connectips.com/docs/category/2-connectips-gateway) for a seamless integration experience.
 
