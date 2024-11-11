@@ -140,4 +140,4 @@ Contributions are welcome!
 Feel free to report issues or submit pull requests to improve this [project](https://github.com/Ashwin1002/ConnectIPS-Flutter/issues).
 
 ## Stay Connected
-For further details, refer to the official [documentation]((https://npidoc.connectips.com/docs/category/2-connectips-gateway).
+For further details, refer to the official [documentation](https://npidoc.connectips.com/docs/category/2-connectips-gateway).
