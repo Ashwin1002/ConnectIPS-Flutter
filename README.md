@@ -133,9 +133,9 @@ final vConfig = VerificationConfig(
 Add this to your payment button or custom instance for transaction verification.
 
 ## Testing
-Use the staging credentials provided by NCHL for testing your integration before going live.
+To create a test credentials for payment, use the following [link](https://uat.connectips.com:7443/) for registering a test account. After creating a test account, consult wiht NCHL team to link a test bank account.
 
-##Contributions
+## Contributions
 Contributions are welcome!
 Feel free to report issues or submit pull requests to improve this [project](https://github.com/Ashwin1002/ConnectIPS-Flutter/issues).
 
