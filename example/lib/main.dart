@@ -80,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
   //   );
   // }
 
-
   final config = const CIPSConfig.stag(
     creditorPath: 'private_key.pem',
     merchantID: 007,
@@ -102,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ConnectIPSPaymentButton(
           config: config,
-
           onMessage: (
             connectIPS, {
             description,
