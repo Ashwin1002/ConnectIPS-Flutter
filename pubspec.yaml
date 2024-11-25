@@ -1,12 +1,21 @@
 name: connect_ips_flutter
 description: "Unofficial plugin for integrating connect ips gateway via flutter"
-
-publish_to: "none"
-
 version: 1.0.0+1
+issue_tracker: https://github.com/Ashwin1002/ConnectIPS-Flutter/issues
+homepage: https://github.com/Ashwin1002/ConnectIPS-Flutter
+repository: https://github.com/Ashwin1002/ConnectIPS-Flutter
+documentation: https://npidoc.connectips.com/docs/category/2-connectips-gateway
+screenshots:
+  - description: "Connect IPS gateway"
+    path: screenshots/payment.PNG
 
 environment:
-  sdk: ^3.5.3
+  sdk: ">=3.2.0 <4.0.0"
+  flutter: ">=3.16.0"
+
+platforms:
+  android:
+  ios:
 
 dependencies:
   asn1lib: ^1.5.5
@@ -28,3 +37,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - LICENSE
