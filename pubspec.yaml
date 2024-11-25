@@ -4,7 +4,7 @@ version: 1.0.0+3
 issue_tracker: https://github.com/Ashwin1002/ConnectIPS-Flutter/issues
 homepage: https://github.com/Ashwin1002/ConnectIPS-Flutter
 repository: https://github.com/Ashwin1002/ConnectIPS-Flutter
-documentation: https://npidoc.connectips.com/docs/category/2-connectips-gateway
+
 screenshots:
   - description: "Connect IPS gateway"
     path: screenshots/payment.PNG
