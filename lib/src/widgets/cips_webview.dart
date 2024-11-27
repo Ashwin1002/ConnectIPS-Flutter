@@ -75,7 +75,7 @@ class _ConnectIPSWebViewState extends State<ConnectIPSWebView> {
       'REFERENCEID': paymentConfig.refrerenceID,
       'REMARKS': paymentConfig.remarks,
       'PARTICULARS': paymentConfig.particulars,
-      'TOKEN': await getSignedToken(message.trim(), paymentConfig.creditorPath),
+      'TOKEN': await getSignedToken(message.trim(), paymentConfig.creditorKey),
     };
 
     log('message initial => $message');
@@ -238,7 +238,7 @@ class _ConnectIPSWebViewClient extends StatelessWidget {
                   statusDesc: 'Verification required',
                   token: await getSignedToken(
                     message,
-                    payconfig.creditorPath,
+                    payconfig.creditorKey,
                   ),
                 );
                 await connectIPS.onReturn?.call(result);

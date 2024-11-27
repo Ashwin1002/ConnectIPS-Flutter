@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:asn1lib/asn1lib.dart';
 import 'package:flutter/services.dart';
 import 'package:pointycastle/export.dart';
+
 
 /// Get the signed token from message using `SHA256withRSA` algorithm.
 ///
@@ -22,9 +24,16 @@ import 'package:pointycastle/export.dart';
 /// - [message]: Message required for encryption.
 /// - [path]: Path of the digital certificate private key (pem file)
 
-Future<String> getSignedToken(String message, String path) async {
+Future<String> getSignedToken(
+  String message,
+  FutureOr<String> Function() getSecretKey, [
+  String? path,
+]) async {
 // Load the private key from PEM file
-  final privateKey = await _loadPrivateKeyFromPem(path);
+
+  final privateKey = path != null
+      ? await _loadPrivateKeyFromPem(path)
+      : _parsePrivateKeyFromPem(await getSecretKey.call());
 
   // Sign the message
   final signature = _signMessage(message, privateKey);

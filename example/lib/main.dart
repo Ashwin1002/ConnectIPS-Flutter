@@ -80,8 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //   );
   // }
 
-  final config = const CIPSConfig.stag(
-    creditorPath: 'private_key.pem',
+  final config = CIPSConfig.stag(
     merchantID: 007,
     appID: 'MER-550-APP-1',
     appName: 'APPNAME',
@@ -89,6 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
     successUrl: 'https://example.com/success',
     failureUrl: 'https://example.com/transaction/failure',
     transactionAmount: 1000,
+    creditorKey: () async {
+      return '<--- creditor key that is fetched from the server --->';
+    },
   );
 
   @override

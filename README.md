@@ -28,7 +28,7 @@ You must provide the following URLs for transaction redirection:
 - Failure URL: Redirected upon failed payment or manual return.
 
 ### Setting Up
-1. Certificate Conversion
+<!-- 1. Certificate Conversion
 Since Dart doesn't directly support .pfx files, convert the provided .pfx certificate to a .pem file using OpenSSL in your project terminal:
 
 ```
@@ -40,7 +40,10 @@ The private_key.pem file will be used to sign the token. Add the asset path in t
 ```
 assets:
  - private_key.pem // path of the generated .pem file
-```
+``` -->
+
+1. Storing and accessing the private key
+Store the key from `CREDITOR.pfx `file as an environment variable in your backend or any cloud storage and retrieve it using secure server side code like creating a authenticated request to get the token. It is bad practice to keep private keys in the app.
 
 2. Add Dependency
 Add `connect_ips_flutter` to your pubspec.yaml:
@@ -61,7 +64,7 @@ Set up your configuration using `CIPSConfig`:
 
 ```
 final config = const CIPSConfig.stag(
-  creditorPath: '<path_to_private_key.pem>',
+  creditorKey: '<-- your authenticated server-side request to get the token -->',
   merchantID: '<merchant_id>',
   appID: '<app_id>',
   appName: '<app_name>',

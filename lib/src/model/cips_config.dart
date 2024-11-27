@@ -1,3 +1,5 @@
+import 'dart:async';
+
 /// Configuration class for initiating a payment through Connect IPS (CIPS).
 ///
 /// This class holds all the necessary information required for setting up
@@ -7,7 +9,7 @@ class CIPSConfig {
   ///
   /// Parameters:
   /// - [baseUrl]: Base URL for the live environment.
-  /// - [creditorPath]: Path to the digital certificate used for signing.
+  /// - [creditorKey]: the digital certificate used for signing token.
   /// - [merchantID]: Unique identifier for the merchant, provided by NCHL.
   /// - [appID]: Application ID provided by NCHL after registration.
   /// - [appName]: Name of the merchant's application.
@@ -20,7 +22,7 @@ class CIPSConfig {
   /// - [particulars]: Optional additional remarks about the transaction.
   const CIPSConfig.live({
     required this.baseUrl,
-    required this.creditorPath,
+    required this.creditorKey,
     required this.merchantID,
     required this.appID,
     required this.appName,
@@ -38,7 +40,7 @@ class CIPSConfig {
   /// Constructor for configuring the payment settings in **Staging Mode**.
   ///
   /// This sets up a default `baseUrl` for the staging environment.
-  /// - [creditorPath]: Path to the digital certificate used for signing.
+  /// - [creditorKey]: the digital certificate used for signing token.
   /// - [merchantID]: Unique identifier for the merchant, provided by NCHL.
   /// - [appID]: Application ID provided by NCHL after registration.
   /// - [appName]: Name of the merchant's application.
@@ -50,7 +52,7 @@ class CIPSConfig {
   /// - [remarks]: Optional remarks related to the transaction.
   /// - [particulars]: Optional additional remarks about the transaction.
   const CIPSConfig.stag({
-    required this.creditorPath,
+    required this.creditorKey,
     required this.merchantID,
     required this.appID,
     required this.appName,
@@ -70,9 +72,9 @@ class CIPSConfig {
   /// For staging mode, it defaults to 'uat.connectips.com'.
   final String baseUrl;
 
-  /// Path to the digital certificate (pfx/keystore) file.
-  /// This certificate is used to sign the transaction request.
-  final String creditorPath;
+  /// Creditor key usually requested from backend/cloud storage
+  ///  This certificate is used to sign the transaction request.
+  final FutureOr<String> Function() creditorKey;
 
   /// The success url set which is redirected after transaction success
   final String successUrl;
@@ -129,6 +131,9 @@ class CIPSConfig {
 
     return other is CIPSConfig &&
         other.baseUrl == baseUrl &&
+        other.creditorKey == creditorKey &&
+        other.successUrl == successUrl &&
+        other.failureUrl == failureUrl &&
         other.merchantID == merchantID &&
         other.appID == appID &&
         other.appName == appName &&
@@ -146,6 +151,9 @@ class CIPSConfig {
   @override
   int get hashCode {
     return baseUrl.hashCode ^
+        creditorKey.hashCode ^
+        successUrl.hashCode ^
+        failureUrl.hashCode ^
         merchantID.hashCode ^
         appID.hashCode ^
         appName.hashCode ^

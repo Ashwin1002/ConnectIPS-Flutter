@@ -1,6 +1,6 @@
 name: connect_ips_flutter
 description: "Unofficial plugin for integrating connect ips gateway via flutter"
-version: 1.0.0+3
+version: 1.0.0+4
 issue_tracker: https://github.com/Ashwin1002/ConnectIPS-Flutter/issues
 homepage: https://github.com/Ashwin1002/ConnectIPS-Flutter
 repository: https://github.com/Ashwin1002/ConnectIPS-Flutter

@@ -70,7 +70,7 @@ class ConnectIpsRepository {
           "appId": paymentConfig.appID,
           "referenceId": paymentConfig.transactionID,
           "txnAmt": paymentConfig.transactionAmount,
-          'TOKEN': await getSignedToken(message, paymentConfig.creditorPath),
+          'TOKEN': await getSignedToken(message, paymentConfig.creditorKey),
         };
 
         // Make the POST request
@@ -134,8 +134,8 @@ class ConnectIpsRepository {
             'appId': paymentConfig.appID,
             'referenceId': paymentConfig.transactionID,
             'txnAmt': paymentConfig.transactionAmount,
-            'token': await getSignedToken(
-                message.trim(), paymentConfig.creditorPath),
+            'token':
+                await getSignedToken(message.trim(), paymentConfig.creditorKey),
           },
         );
 
