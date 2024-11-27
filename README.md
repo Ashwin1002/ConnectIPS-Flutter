@@ -42,7 +42,8 @@ assets:
  - private_key.pem // path of the generated .pem file
 ``` -->
 
-1. Storing and accessing the private key
+1. Storing and accessing the private key:
+
 Store the key from `CREDITOR.pfx `file as an environment variable in your backend or any cloud storage and retrieve it using secure server side code like creating a authenticated request to get the token. It is bad practice to keep private keys in the app.
 
 2. Add Dependency
