@@ -64,7 +64,7 @@ Set up your configuration using `CIPSConfig`:
 
 ```
 final config = const CIPSConfig.stag(
-  creditorKey: '<-- your authenticated server-side request to get the token -->',
+  creditorKey: () async => await getTokenFromServer(), // the function has a return type of string
   merchantID: '<merchant_id>',
   appID: '<app_id>',
   appName: '<app_name>',
